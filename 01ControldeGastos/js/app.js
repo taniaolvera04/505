@@ -172,8 +172,11 @@ const imprimirInfo = () => {
     disponible = tPresupuesto - tGastos;
 
     let porcentaje = 100-((tGastos/tPresupuesto)*100);
-    progress.innerHTML=`<circle-progress value="${porcentaje}" min="0" max="100" text-format="percent"></circle-progress>`;
-
+    porcentaje = Math.max(porcentaje, 0);
+   
+    if (progress) {
+        progress.setAttribute('value', porcentaje);
+    }
     totalGastos.innerHTML = `$${tGastos.toFixed(2)}`;
     totalPresupuesto.innerHTML = `$${tPresupuesto.toFixed(2)}`;
     totalDisponible.innerHTML = `$${disponible.toFixed(2)}`;
@@ -235,8 +238,9 @@ function delGastos(index) {
         if (result.isConfirmed) {
             gastos.splice(index, 1);
             localStorage.setItem("gastos", JSON.stringify(gastos)); 
-            Swal.fire("El gasto se eliminó exitosamente", "", "success");
             mostrarGastos();
+            imprimirInfo();
+            Swal.fire("El gasto se eliminó exitosamente", "", "success");
         }
     });
 }
