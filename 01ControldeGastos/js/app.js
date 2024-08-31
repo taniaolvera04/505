@@ -7,8 +7,10 @@ var btnPresupuesto = document.querySelector("#btnPresupuesto");
 var btnActualizar=document.querySelector("#actualizar");
 var divGastos = document.querySelector("#divGastos");
 var progress = document.querySelector("#progress");
+
 var tGastos=0;
 var disponible=0;
+let index;
 
 
 const inicio =()=>{
@@ -27,6 +29,7 @@ const inicio =()=>{
         divGastos.classList.add("d-none");
         presupuesto.value=0;
     }
+    imprimirInfo();
 }
 
 
@@ -53,8 +56,6 @@ divGastos.classList.add("d-block");
 totalPresupuesto.innerHTML=`$${tPresupuesto.toFixed(2)}`;
 /*document.getElementById('totalPresupuesto').textContent =  "$" +tPresupuesto.toFixed(2);DIEGO SOLUCIÓN*/
 
-progress.innerHTML=`<circle-progress value="0" max="100" text-format="percent"></circle-progress>`;
-
 mostrarGastos();
 
 }
@@ -63,7 +64,7 @@ mostrarGastos();
 const guardarGasto = () => {
     gastos = JSON.parse(localStorage.getItem("gastos")) || [];
     let descripcion = document.getElementById("descripcion").value;
-    let costo = parseFloat(document.getElementById("costo").value);
+    let costo = parseInt(document.getElementById("costo").value);
     let categoria = document.getElementById("categoria").value;
 
     if (descripcion.trim() === "" || isNaN(costo) || costo <= 0) {
@@ -80,22 +81,22 @@ const guardarGasto = () => {
     gastos.push(gasto);
     localStorage.setItem("gastos", JSON.stringify(gastos));
     Swal.fire({icon: "success", title: "GASTO REGISTRADO", text: "EL GASTO FUE REGISTRADO CORRECTAMENTE"});
-    mostrarGastos();
+    bootstrap.Modal.getInstance(document.getElementById("nuevoGasto")).hide();
+
     document.getElementById("descripcion").value = "";
     document.getElementById("costo").value = "";
     document.getElementById("categoria").selectedIndex = 0;
+    mostrarGastos();
 }
 
 
-
-
-// Añadimos un escuchador de eventos al elemento con id "filtrarCategoria"
-document.getElementById("filtrarCategoria").addEventListener("change", (event) => {
-    // Cuando el evento "change" ocurre, obtenemos el valor seleccionado del elemento
-    const categoriaSeleccionada = event.target.value;
-    // Llamamos a la función mostrarGastos pasando el valor seleccionado como argumento
-    mostrarGastos(categoriaSeleccionada);
-});
+    // Añadimos un escuchador de eventos al elemento con id "filtrarCategoria"
+    document.getElementById("filtrarCategoria").addEventListener("change", (event) => {
+        // Cuando el evento "change" ocurre, obtenemos el valor seleccionado del elemento
+        const categoriaSeleccionada = event.target.value;
+        // Llamamos a la función mostrarGastos pasando el valor seleccionado como argumento
+        mostrarGastos(categoriaSeleccionada);
+    });
 
 
 // Función para mostrar los gastos, con una categoría opcional para filtrar
@@ -113,7 +114,7 @@ const mostrarGastos = (categoria = "todos") => {
     }
 
     // Inicializar el índice para los botones de edición y eliminación
-    let index = 0; 
+    index = 0; 
     // Inicializar el total de gastos
     tGastos = 0;  
 
@@ -128,7 +129,7 @@ const mostrarGastos = (categoria = "todos") => {
                         <div class="col"><img src="img/${gasto.categoria}.png" class="imgCategoria"></div>
                         <div class="col text-start">
                             <p><b>DESCRIPCIÓN: </b><small>${gasto.descripcion}</small></p>
-                            <p><b>COSTO: </b><small>$${parseFloat(gasto.costo).toFixed(2)}</small></p>
+                            <p><b>COSTO: </b><small>$${parseInt(gasto.costo).toFixed(2)}</small></p>
                         </div>
                         <div class="col">
                             <button class="btn btn-info mb-2" onclick="mostrarG(${index})" data-bs-toggle="modal" data-bs-target="#editarGasto">Update 
@@ -167,16 +168,11 @@ const imprimirInfo = () => {
     var totalPresupuesto = document.querySelector("#totalPresupuesto");
     var totalDisponible = document.querySelector("#totalDisponible");
     var totalGastos = document.querySelector("#totalGastos");
-
     var tPresupuesto = parseFloat(localStorage.getItem("presupuesto")) || 0;
     disponible = tPresupuesto - tGastos;
 
-    let porcentaje = Math.max(0, ((disponible / tPresupuesto) * 100).toFixed(2));
-
-    // Asignar el porcentaje calculado al circle-progress
-    if (progress) {
-        progress.setAttribute("value", porcentaje);
-    }
+    let porcentaje = 100-((tGastos/tPresupuesto)*100);
+    progress.innerHTML=`<circle-progress value="${porcentaje}" min="0" max="100" text-format="percent"></circle-progress>`;
 
     totalGastos.innerHTML = `$${tGastos.toFixed(2)}`;
     totalPresupuesto.innerHTML = `$${tPresupuesto.toFixed(2)}`;
@@ -219,8 +215,8 @@ btnActualizar.onclick = () => {
     gastos[index].costo = costo;
     gastos[index].categoria = categoria;
     localStorage.setItem("gastos", JSON.stringify(gastos));
-    bootstrap.Modal.getInstance(document.getElementById("editarGasto")).hide();
     Swal.fire({icon: "success", title: "GASTO ACTUALIZADO", text: "EL GASTO FUE ACTUALIZADO CORRECTAMENTE"});
+    bootstrap.Modal.getInstance(document.getElementById("editarGasto")).hide();
     mostrarGastos();
 }
 
@@ -252,5 +248,3 @@ const reset=()=>{
     Swal.fire({icon:"success",title:"RESET",text:"LOS GASTOS SE HAN RESETADO CORRECTAMENTE"});
     inicio();
 }
-
-
