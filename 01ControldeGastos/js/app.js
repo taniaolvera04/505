@@ -101,28 +101,21 @@ const guardarGasto = () => {
 
 // Función para mostrar los gastos, con una categoría opcional para filtrar
 const mostrarGastos = (categoria = "todos") => {
-    // Obtener los gastos almacenados en el localStorage y convertirlos a un arreglo de objetos
     gastos = JSON.parse(localStorage.getItem("gastos")) || [];
-    
-    // Inicializar una variable para construir el HTML de los gastos
-    gastosHTML = ``;
+    let gastosHTML = ``;
 
-    // Si no hay gastos, mostrar un mensaje indicando que no hay gastos
     if (gastos.length == 0) {
         document.getElementById('listaGastos').innerHTML = `<b>No hay gastos</b>`;
-        return; // Salir de la función ya que no hay nada más que hacer
+        tGastos = 0; // Asegúrate de resetear tGastos si no hay gastos
+        imprimirInfo(); // Actualiza la información
+        return;
     }
 
-    // Inicializar el índice para los botones de edición y eliminación
-    index = 0; 
-    // Inicializar el total de gastos
-    tGastos = 0;  
+    index = 0;
+    tGastos = 0;
 
-    // Iterar sobre cada gasto en el arreglo
     gastos.map(gasto => {
-        // Mostrar solo los gastos que coinciden con la categoría seleccionada o todos
         if (categoria == gasto.categoria || categoria == "todos") {
-            // Construir el HTML para cada gasto
             gastosHTML += `
                 <div class="card text-center w-75 m-auto mt-3 shadow p-2 " >
                     <div class="row">
@@ -146,18 +139,14 @@ const mostrarGastos = (categoria = "todos") => {
                     </div>  
                 </div>
             `;
-            // Sumar el costo del gasto al total
             tGastos += parseFloat(gasto.costo);
         }
-        // Incrementar el índice para la siguiente iteración
         index++;
     });
 
-    // Mostrar el HTML generado en el elemento con id "listaGastos"
     document.getElementById("listaGastos").innerHTML = gastosHTML;
-    // Llamar a una función para actualizar la información (como el total de gastos, etc.)
-    imprimirInfo();
-}
+    imprimirInfo(); // Recalcula y actualiza la información
+};
 
 
 
@@ -171,9 +160,9 @@ const imprimirInfo = () => {
     var tPresupuesto = parseFloat(localStorage.getItem("presupuesto")) || 0;
     disponible = tPresupuesto - tGastos;
 
-    let porcentaje = 100-((tGastos/tPresupuesto)*100);
+    let porcentaje = 100 - ((tGastos / tPresupuesto) * 100);
     porcentaje = Math.max(porcentaje, 0);
-   
+    
     if (progress) {
         progress.setAttribute('value', porcentaje);
     }
