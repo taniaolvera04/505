@@ -89,17 +89,39 @@ const guardarGasto = () => {
 
 
 
+// Añadimos un escuchador de eventos al elemento con id "filtrarCategoria"
+document.getElementById("filtrarCategoria").addEventListener("change", (event) => {
+    // Cuando el evento "change" ocurre, obtenemos el valor seleccionado del elemento
+    const categoriaSeleccionada = event.target.value;
+    // Llamamos a la función mostrarGastos pasando el valor seleccionado como argumento
+    mostrarGastos(categoriaSeleccionada);
+});
+
+
+// Función para mostrar los gastos, con una categoría opcional para filtrar
 const mostrarGastos = (categoria = "todos") => {
+    // Obtener los gastos almacenados en el localStorage y convertirlos a un arreglo de objetos
     gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+    
+    // Inicializar una variable para construir el HTML de los gastos
     gastosHTML = ``;
 
+    // Si no hay gastos, mostrar un mensaje indicando que no hay gastos
     if (gastos.length == 0) {
         document.getElementById('listaGastos').innerHTML = `<b>No hay gastos</b>`;
+        return; // Salir de la función ya que no hay nada más que hacer
     }
+
+    // Inicializar el índice para los botones de edición y eliminación
     let index = 0; 
+    // Inicializar el total de gastos
     tGastos = 0;  
+
+    // Iterar sobre cada gasto en el arreglo
     gastos.map(gasto => {
+        // Mostrar solo los gastos que coinciden con la categoría seleccionada o todos
         if (categoria == gasto.categoria || categoria == "todos") {
+            // Construir el HTML para cada gasto
             gastosHTML += `
                 <div class="card text-center w-75 m-auto mt-3 shadow p-2 " >
                     <div class="row">
@@ -123,55 +145,60 @@ const mostrarGastos = (categoria = "todos") => {
                     </div>  
                 </div>
             `;
+            // Sumar el costo del gasto al total
             tGastos += parseFloat(gasto.costo);
         }
+        // Incrementar el índice para la siguiente iteración
         index++;
     });
+
+    // Mostrar el HTML generado en el elemento con id "listaGastos"
     document.getElementById("listaGastos").innerHTML = gastosHTML;
+    // Llamar a una función para actualizar la información (como el total de gastos, etc.)
     imprimirInfo();
 }
 
 
 
+
+/*ESTE CÓDIGO IMPRIME INFORMACIÓN DEL PRESUPUESTO, DISPONIBLE, GASTADO Y CALCULA PORCENTAJE TOTAL 
+CON BASE EN GASTOS Y LOS MANDA A CIRCLE-PROGRESS Y A ETIQUETAS CORRESPONDIENTES */
 const imprimirInfo = () => {
     var totalPresupuesto = document.querySelector("#totalPresupuesto");
     var totalDisponible = document.querySelector("#totalDisponible");
     var totalGastos = document.querySelector("#totalGastos");
 
-    // Recupera el presupuesto total desde localStorage
     var tPresupuesto = parseFloat(localStorage.getItem("presupuesto")) || 0;
-
-    // Calcula el disponible restando los gastos totales del presupuesto
     disponible = tPresupuesto - tGastos;
 
-    // Calcula el porcentaje de fondos restantes
-    let porcentaje = (disponible / tPresupuesto) * 100;
-    
-    // Actualiza el progreso visual
-    progress.innerHTML = `<circle-progress value="${porcentaje}" max="100" text-format="percent"></circle-progress>`;
+    let porcentaje = Math.max(0, ((disponible / tPresupuesto) * 100).toFixed(2));
 
-    // Actualiza los elementos HTML con los valores calculados
+    // Asignar el porcentaje calculado al circle-progress
+    if (progress) {
+        progress.setAttribute("value", porcentaje);
+    }
+
     totalGastos.innerHTML = `$${tGastos.toFixed(2)}`;
     totalPresupuesto.innerHTML = `$${tPresupuesto.toFixed(2)}`;
     totalDisponible.innerHTML = `$${disponible.toFixed(2)}`;
-}
+};
+
 
 
 
 /*BLOQUE QUE MUESTRA LOS DATOS REGISTRADOS EN LOCAL AL DARLE CLICK PARA QUE SE  MUESTREN EN MODAL*/
-var indiceGasto;
 function mostrarG(index){
-indiceGasto=index;
-var gasto2=gastos[index];
-document.getElementById("edescripcion").value=gasto2.descripcion;
-document.getElementById("ecosto").value=gasto2.costo;
-document.getElementById("ecategoria").value=gasto2.categoria;
+var gasto=gastos[index];
+document.getElementById("edescripcion").value=gasto.descripcion;
+document.getElementById("ecosto").value=gasto.costo;
+document.getElementById("ecategoria").value=gasto.categoria;
 document.getElementById("eindex").value=index;
 }
 
 
 btnActualizar.onclick = () => {
     gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+
     let descripcion = document.getElementById("edescripcion").value;
     let costo = parseFloat(document.getElementById("ecosto").value);
     let categoria = document.getElementById("ecategoria").value;
@@ -212,8 +239,8 @@ function delGastos(index) {
         if (result.isConfirmed) {
             gastos.splice(index, 1);
             localStorage.setItem("gastos", JSON.stringify(gastos)); 
-            mostrarGastos();
             Swal.fire("El gasto se eliminó exitosamente", "", "success");
+            mostrarGastos();
         }
     });
 }
