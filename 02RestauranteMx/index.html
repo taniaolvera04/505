@@ -39,6 +39,41 @@
     rgba(240, 46, 170, 0.2) 15px 15px;
 }
 
+.btn-info{
+border-radius: 48%;
+height: 45px;
+width: 90px;
+background-color: plum;
+border: 1px purple;
+color: white;
+font-weight: 500;
+text-align: center;
+}
+
+.btn-info:hover{
+background-color: rgb(149, 223, 236);
+border: 1px rgb(0, 113, 128);
+color: white;
+font-weight: 500;
+text-align: center;
+}
+
+.btn-dark{
+background-color: rgb(192, 109, 192);
+border: 1px purple;
+color: white;
+font-weight: 500;
+text-align: center;
+}
+
+.btn-dark:hover{
+background-color: rgb(231, 85, 219);
+border: 1px purple;
+color: white;
+font-weight: 500;
+text-align: center;
+}
+
 </style>
 
 </head>
@@ -49,9 +84,11 @@
     <nav class="navbar" style="background-color: #ff4e7a;">
         <div class="container-fluid">
           <h1 class="m-auto text-white">RESTAURANTE "LA KITTY"</h1>
+          <img src="img/kitty.png" alt="Logo" width="70" height="50" class="d-inline-block align-text-top m-auto">
         </div>
       </nav>
 
+    
 <!---->
 <div class="card text-center w-75 m-auto mt-3 shadow p-2 height-adjusted"> 
     <div class="row">
@@ -89,7 +126,7 @@
             </table>
         </div>
 
-        
+
         <!-- Mensaje NO HAY ORDEN -->
         <div class="col-md-6">
             <h3><b>NO HAY ORDEN</b></h3>
@@ -133,7 +170,7 @@
             </div>
 
             <div class="row">
-                <div class="col"><button class="d-block btn btn-danger w-100">Cancelar</button></div>
+                <div class="col"><button class="d-block btn btn-dark w-100">Cancelar</button></div>
                 <div class="col"><button class="btn btn-dark w-100">Guardar Orden</button></div>
             </div>
         </div>

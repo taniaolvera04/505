@@ -1,12 +1,16 @@
 var platillos = JSON.parse(localStorage.getItem("platillos")) || [];
+var ordenes = JSON.parse(localStorage.getItem("ordenes")) || [];
+var propina=0, subtotal=0, total=0, porcentaje=0;
 
 
 const guardarItem = () => {
+    platillos = JSON.parse(localStorage.getItem("platillos")) || [];
+
     var descripcion = document.getElementById("descripcion").value;
     var precio = parseFloat(document.getElementById("precio").value); // Utilizar parseFloat en lugar de parseInt para manejar precios decimales
 
-    if (descripcion.trim() === "" || isNaN(precio) || precio <= 0) {
-        Swal.fire({ icon: "error", title: "ERROR", text: "TIENES CAMPOS VACÍOS O EL PRECIO NO ES VÁLIDO" });
+    if (descripcion.trim() === "" || isNaN(precio) || document.getElementById("precio").value==="" || precio <= 0) {
+        Swal.fire({ icon: "error", title: "ERROR", text: "LOS DATOS SON INCORRECTOS" });
         return;
     }
 
@@ -22,23 +26,26 @@ const guardarItem = () => {
     document.getElementById("precio").value = "";
 
    
-    imprimirPlatillos();
+    cargarPlatillos();
 }
 
 
-const imprimirPlatillos = () => {
-    let tablaHTML = '';
-    let total = 0;
+const cargarPlatillos = () => {
+    let index=0;
+    platillos = JSON.parse(localStorage.getItem("platillos")) || [];
 
-    platillos.forEach(platillo => {
+    let tablaHTML = ``;
+
+    platillos.map(p => {
         tablaHTML += `
             <tr>
                 <td>${platillo.descripcion}</td>
-                <td><button class="btn btn-info">$${platillo.precio.toFixed(2)}</button></td>
+                <td><button class="btn btn-info" onclick="agregar(${index})">$${platillo.precio.toFixed(2)}</button></td>
             </tr>
         `;
-        total += platillo.precio; 
+        index++;
     });
 
     document.getElementById("listaPlatillos").innerHTML = tablaHTML;
+    cargarOrdenes();
 }
