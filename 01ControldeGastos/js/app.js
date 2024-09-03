@@ -38,11 +38,11 @@ const inicio =()=>{
 /*EVENTO ON CLICK BOTÓN INICIAR*/ 
 btnPresupuesto.onclick=()=>{
 tPresupuesto=parseInt(presupuesto.value);
-localStorage.setItem('presupuesto', tPresupuesto);
-if(tPresupuesto==0){
+if(tPresupuesto==0 || tPresupuesto<0){
     Swal.fire({icon:"error",title:"ERROR",text:"EL PRESUPUESTO DEBE DE SER MAYOR A 0"});
  return;
 }
+    localStorage.setItem('presupuesto', tPresupuesto);
 
 
 /*BLOQUE QUE SIRVE PARA QUE AL APRETAR BOTÓN INICIAR (SI PRESUPUESTO ES MAYOR A 0)
