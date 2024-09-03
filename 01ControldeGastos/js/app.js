@@ -38,8 +38,8 @@ const inicio =()=>{
 /*EVENTO ON CLICK BOTÓN INICIAR*/ 
 btnPresupuesto.onclick=()=>{
 tPresupuesto=parseInt(presupuesto.value);
-if(tPresupuesto==0 || tPresupuesto<0){
-    Swal.fire({icon:"error",title:"ERROR",text:"EL PRESUPUESTO DEBE DE SER MAYOR A 0"});
+if(tPresupuesto==0 || tPresupuesto<0 || isNaN(tPresupuesto)){
+    Swal.fire({icon:"error",title:"ERROR",text:"EL PRESUPUESTO ES INVÁLIDO"});
  return;
 }
     localStorage.setItem('presupuesto', tPresupuesto);

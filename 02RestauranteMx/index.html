@@ -43,7 +43,7 @@
 
 </head>
 
-<body class="text-center">
+<body class="text-center" onload="imprimirPlatillos()">
 
     <!--TÍTULO NAVBAR-->
     <nav class="navbar" style="background-color: #ff4e7a;">
@@ -83,21 +83,16 @@
             </button><br><br>
 
             <table class="table">
-                <tbody>
-                    <tr>
-                        <td>Kitty Quesadillas</td>
-                        <td><button class="btn btn-info">$25.00</button></td>
-                    </tr>
-                    <tr>
-                        <td>Kitty Tacos</td>
-                        <td><button class="btn btn-info">$30.00</button></td>
-                    </tr>
+                <tbody id="listaPlatillos">
+
                 </tbody>
             </table>
         </div>
+
+        
         <!-- Mensaje NO HAY ORDEN -->
         <div class="col-md-6">
-            <h2 class=""><b>NO HAY ORDEN</b></h2>
+            <h3><b>NO HAY ORDEN</b></h3>
             <div class="list-group">
                 <div class="list-group-item list-group-item-action border-my-2">
                     <div class="d-flex w-100 justify-content-between">
@@ -153,7 +148,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 w-100 m-auto" id="exampleModalLabel">NUEVO GASTO</h1>
+                    <h1 class="modal-title fs-5 w-100 m-auto" id="exampleModalLabel">NUEVO PLATILLO</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
