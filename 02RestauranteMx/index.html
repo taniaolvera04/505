@@ -82,15 +82,15 @@
                 <h3 id="pr">PROPINA</h3>
                 <div class="input-group justify-content-center">
                     <div class="input-group-text">
-                        <input class="form-check-input mx-3" type="radio" name="propina" id="propina" aria-label="10%">10%
+                        <input class="form-check-input mx-3" type="radio" onclick="calcularPropina()" value="10" name="propina" id="propina" aria-label="10%">10%
                     </div>
 
                     <div class="input-group-text">
-                        <input class="form-check-input mx-3" type="radio" name="propina" id="propina" aria-label="20%">20%
+                        <input class="form-check-input mx-3" type="radio" onclick="calcularPropina()" value="20" name="propina" id="propina" aria-label="20%">20%
                     </div>
 
                     <div class="input-group-text">
-                        <input class="form-check-input mx-3" type="radio" name="propina" id="propina" aria-label="30%">30%
+                        <input class="form-check-input mx-3" type="radio" onclick="calcularPropina()" value="30" name="propina" id="propina" aria-label="30%">30%
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
 
             <div class="row">
                 <div class="col"><button class="d-block btn btn-dark w-100">Cancelar</button></div>
-                <div class="col"><button class="btn btn-dark w-100">Guardar Orden</button></div>
+                <div class="col"><button class="btn btn-dark w-100" onclick="terminarP()">Guardar Orden</button></div>
             </div>
         </div>
     </div>

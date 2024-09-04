@@ -71,6 +71,6 @@ const calcularPropina=()=>{
     cargarOrdenes();
 }
 
-const del=()=>{
+const del=(index)=>{
 
 }
