@@ -1,5 +1,5 @@
 .height-adjusted {
-    min-height: 550px;
+    min-height: 520px;
 }
 
 
@@ -57,11 +57,40 @@ text-align: center;
 }
 
 .btn-dark:hover{
-background-color: rgb(231, 85, 219);
-border: 1px purple;
+background-color: rgb(245, 84, 146);
+border: 1px rgb(128, 0, 11);
 color: white;
 font-weight: 500;
 text-align: center;
 }
 
 
+
+
+#propina{
+    border: 2px solid rgb(255, 212, 219);
+}
+
+#propina:checked{
+    background: rgb(245, 120, 195);
+}
+
+#propina:focus{
+    box-shadow: 0 0 0 0.2rem rgba(249, 87, 255, 0.5);
+}
+
+#t{
+    color: rgb(145, 60, 145);
+}
+
+#p{
+    color: rgb(30, 168, 111);
+}
+
+#s{
+    color: rgb(58, 156, 173);
+}
+
+#pr{
+    color: rgb(194, 67, 120);
+}

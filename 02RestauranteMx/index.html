@@ -30,6 +30,7 @@
             <nav class="navbar" style="background-color: #ff80a0;">
                 <div class="container-fluid">
                     <h3 class="m-auto text-white">MENÚ</h3>
+                    <img src="img/pozole.jpg" height="40" width="40" style="border-radius: 100%;">
                 </div>
             </nav>
         </div>
@@ -38,6 +39,7 @@
             <nav class="navbar" style="background-color: #ff80a0;">
                 <div class="container-fluid">
                     <h3 class="m-auto text-white">ORDEN</h3>
+                    <img src="img/menu.png" height="40" width="35" style="border-radius: 100%;">
                 </div>
             </nav>
         </div>
@@ -62,7 +64,7 @@
 
         <!-- Mensaje NO HAY ORDEN -->
         <div class="col-md-6">
-            <h3><b>NO HAY ORDEN</b></h3>
+            <h4><b>NO HAY ORDEN</b></h4>
             <div class="list-group">
                 <div class="list-group-item list-group-item-action border-my-2">
                     <div class="d-flex w-100 justify-content-between">
@@ -77,18 +79,18 @@
 <br><br>
 
             <div class="text-center">
-                <h3>PROPINA</h3>
+                <h3 id="pr">PROPINA</h3>
                 <div class="input-group justify-content-center">
                     <div class="input-group-text">
-                        <input class="form-check-input mx-3" type="radio" name="propina" id="propina" aria-label="10%">10%
+                        <input class="form-check-input mx-3" type="radio" onclick="calcularPropina()" value="10" name="propina" id="propina" aria-label="10%">10%
                     </div>
 
                     <div class="input-group-text">
-                        <input class="form-check-input mx-3" type="radio" name="propina" id="propina" aria-label="20%">20%
+                        <input class="form-check-input mx-3" type="radio" onclick="calcularPropina()" value="20" name="propina" id="propina" aria-label="20%">20%
                     </div>
 
                     <div class="input-group-text">
-                        <input class="form-check-input mx-3" type="radio" name="propina" id="propina" aria-label="30%">30%
+                        <input class="form-check-input mx-3" type="radio" onclick="calcularPropina()" value="30" name="propina" id="propina" aria-label="30%">30%
                     </div>
                 </div>
             </div>
@@ -97,14 +99,14 @@
 
             <div class="p-2">
                 <h4>TOTAL</h4>
-                <h4>Subtotal: $25.00</h4>
-                <h4>Propina: $2.50</h4>
-                <h4>Total: $27.50</h4>
+                <h4 id="s">Subtotal: $25.00</h4>
+                <h4 id="p">Propina: $2.50</h4>
+                <h4 id="t">Total: $27.50</h4>
             </div>
 
             <div class="row">
                 <div class="col"><button class="d-block btn btn-dark w-100">Cancelar</button></div>
-                <div class="col"><button class="btn btn-dark w-100">Guardar Orden</button></div>
+                <div class="col"><button class="btn btn-dark w-100" onclick="terminarP()">Guardar Orden</button></div>
             </div>
         </div>
     </div>

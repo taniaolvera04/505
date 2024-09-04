@@ -93,6 +93,26 @@ document.getElementById("total").innerHTML=`$ 0.00`
     document.getElementById("total").innerHTML=`$ ${(subtotal+propina).toFixed(2)}`
 }
 
+const delP=(index)=>{
+    platillos = JSON.parse(localStorage.getItem("platillos")) || [];
+    Swal.fire({
+        icon:"question",
+        title: "¿Estás seguro de eliminar este platillo?",
+        showDenyButton: true,
+        confirmButtonText: "Si, eliminar",
+        denyButtonText: "No estoy seguro"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            platillos.splice(index, 1);
+            localStorage.setItem("platillos", JSON.stringify(platillos)); 
+            Swal.fire("El platillo se eliminó exitosamente", "", "success");
+            cargarPlatillos();
+        }
+    });
+}
+
+
+
 
 function calcularPropina() {
     let rPropina = document.querySelector('input[name="propina"]:checked');
@@ -102,6 +122,43 @@ function calcularPropina() {
     cargarOrdenes();
 }
 
-const del=()=>{
 
+const del=(index)=>{
+    ordenes = JSON.parse(localStorage.getItem("ordenes")) || [];
+    Swal.fire({
+        icon:"question",
+        title: "¿Estás seguro de eliminar esta orden?",
+        showDenyButton: true,
+        confirmButtonText: "Si, eliminar",
+        denyButtonText: "No estoy seguro"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            ordenes.splice(index, 1);
+            localStorage.setItem("ordenes", JSON.stringify(ordenes)); 
+            cargarOrdenes();
+            Swal.fire("La orden se eliminó exitosamente", "", "success");
+        }
+    });
 }
+
+
+const terminarP=()=>{
+    Swal.fire({
+        icon:"question",
+        title: "¿Estás seguro de terminar el pedido?",
+        showDenyButton: true,
+        confirmButtonText: "Si, eliminar",
+        denyButtonText: "No estoy seguro"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.removeItem("ordenes"); 
+            subtotal=0;
+            propina=0;
+            total=0;
+            cargarOrdenes();
+            Swal.fire("PEDIDO TERMINADO EXITOSAMENTE", "", "success");
+        }
+    });
+}
+
+cargarPlatillos();
