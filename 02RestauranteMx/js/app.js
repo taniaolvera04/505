@@ -38,11 +38,18 @@ const cargarPlatillos = () => {
 
     platillos.map(p => {
         tablaHTML += `
-            <tr>
-                <td>${platillo.descripcion}</td>
-                <td><button class="btn btn-info" onclick="agregar(${index})">$${platillo.precio.toFixed(2)}</button></td>
-            </tr>
+        <tr>
+         <td class="text-center">
+            <div class="d-flex justify-content-center align-items-center">
+            <button type="button" onclick="add(${index})" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+             ${p.descripcion}
+            </button>
+            <button class="btn btn-info ms-2"> $${parseFloat(p.precio).toFixed(2)}</button>
+            </div>
+        </td>
+    </tr>
         `;
+        
         index++;
     });
 
