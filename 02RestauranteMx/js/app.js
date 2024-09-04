@@ -41,7 +41,7 @@ const cargarPlatillos = () => {
         <tr>
          <td class="text-center">
             <div class="d-flex justify-content-center align-items-center">
-            
+
             <button type="button" onclick="add(${index})" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
              ${p.descripcion}
             </button>
@@ -56,5 +56,14 @@ const cargarPlatillos = () => {
     });
 
     document.getElementById("listaPlatillos").innerHTML = tablaHTML;
+    cargarOrdenes();
+}
+
+
+const calcularPropina=()=>{
+    let rPropina=document.querySelector('input[name="propina"]:checked');
+    if(rPropina){
+        porcentaje=parseFloat(rPropina.value);
+    }
     cargarOrdenes();
 }
