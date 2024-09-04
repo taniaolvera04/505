@@ -64,19 +64,14 @@
 
         <!-- Mensaje NO HAY ORDEN -->
         <div class="col-md-6">
-            <h4><b>NO HAY ORDEN</b></h4>
             <div class="list-group">
                 <div class="list-group-item list-group-item-action border-my-2">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="align-middle">Kitty Quesadillas</h5>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="align-top">Cantidad: 1</h5>
-                        <h5 class="align-middle"><b>$25.00</b></h5> <button class="btn btn-danger my-1">x</button>
-                    </div>
+                    <div class="list-group" id="orden"> </div>
                 </div>
             </div>
 <br><br>
+
+
 
             <div class="text-center">
                 <h3 id="pr">PROPINA</h3>
@@ -105,7 +100,7 @@
             </div>
 
             <div class="row">
-                <div class="col"><button class="d-block btn btn-dark w-100">Cancelar</button></div>
+                <div class="col"><button class="d-block btn btn-dark w-100" onclick="cancelar()">Cancelar</button></div>
                 <div class="col"><button class="btn btn-dark w-100" onclick="terminarP()">Guardar Orden</button></div>
             </div>
         </div>
