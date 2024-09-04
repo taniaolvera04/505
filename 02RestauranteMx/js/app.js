@@ -111,20 +111,28 @@ const cargarOrdenes = () => {
 }
 
 
-const delP=(index)=>{
+const delP = (index) => {
     platillos = JSON.parse(localStorage.getItem("platillos")) || [];
     Swal.fire({
-        icon:"question",
+        icon: "question",
         title: "¿Estás seguro de eliminar este platillo?",
         showDenyButton: true,
-        confirmButtonText: "Si, eliminar",
+        confirmButtonText: "Sí, eliminar",
         denyButtonText: "No estoy seguro"
     }).then((result) => {
         if (result.isConfirmed) {
+            // Eliminar el platillo de la lista de platillos
             platillos.splice(index, 1);
-            localStorage.setItem("platillos", JSON.stringify(platillos)); 
+            localStorage.setItem("platillos", JSON.stringify(platillos));
+
+            // Eliminar el platillo de las órdenes
+            ordenes = JSON.parse(localStorage.getItem("ordenes")) || [];
+            ordenes = ordenes.filter(o => o.index !== index);
+            localStorage.setItem("ordenes", JSON.stringify(ordenes));
+
             Swal.fire("El platillo se eliminó exitosamente", "", "success");
             cargarPlatillos();
+            cargarOrdenes();
         }
     });
 }
