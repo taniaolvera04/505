@@ -107,6 +107,7 @@ const cargarOrdenes = () => {
         document.getElementById("s").innerHTML = `$ ${subtotal.toFixed(2)}`;
         document.getElementById("p").innerHTML = `$ ${propina.toFixed(2)}`;
         document.getElementById("t").innerHTML = `$ ${(subtotal + propina).toFixed(2)}`;
+        calcularPropina();
     }
 }
 
