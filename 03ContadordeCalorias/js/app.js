@@ -13,7 +13,7 @@ const guardarCalorias = () => {
     let actividad = document.getElementById("actividad").value;
     let calorias = parseInt(document.getElementById("calorias").value);
 
-    if (categoria.trim() === "" || actividad.trim() === "" || isNaN(calorias) || calorias <= 0) {
+    if (actividad.trim() === "" || isNaN(calorias) || calorias <= 0) {
         Swal.fire({icon: "error", title: "ERROR", text: "TIENES CAMPOS VACÍOS O LAS CALORÍAS NO SON VÁLIDAS"});
         return;
     }
@@ -24,7 +24,7 @@ const guardarCalorias = () => {
     Swal.fire({icon: "success", title: "INFORMACIÓN REGISTRADA", text: "LA INFORMACIÓN FUE REGISTRADA CORRECTAMENTE"});
     bootstrap.Modal.getInstance(document.getElementById("nuevaCaloria")).hide();
 
-    document.getElementById("categoria").value = "";
+    document.getElementById("categoria").selectedaIndex = 0;
     document.getElementById("actividad").value = "";
     document.getElementById("calorias").value = "1";
     mostrarCalorias();
@@ -69,7 +69,7 @@ const mostrarCalorias = () => {
         `;
 
         // Actualiza los totales
-        if (c.categoria === "Ejercicio") {
+        if (c.categoria === "ejercicio") {
             totalEjercicio += c.calorias;
         } else {
             totalConsumidas += c.calorias;
